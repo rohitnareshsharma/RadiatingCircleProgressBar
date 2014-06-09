@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,21 +24,6 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-    
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.action_settings) {
-            
-        }
-        
-        return super.onOptionsItemSelected(item);
-    }
-
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -46,6 +32,7 @@ public class MainActivity extends FragmentActivity {
         RadiatingCircleProgressBar rcpb;
         
         public PlaceholderFragment() {
+            setHasOptionsMenu(true);
         }
 
         @Override
@@ -62,6 +49,24 @@ public class MainActivity extends FragmentActivity {
             super.onActivityCreated(savedInstanceState);
             rcpb.showProgress();
         }
+        
+        @Override
+        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+            super.onCreateOptionsMenu(menu, inflater);
+            inflater.inflate(R.menu.main, menu);
+        }
+        
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            if(item.getItemId() == R.id.action_show) {
+                rcpb.showProgress();
+            } else if(item.getItemId() == R.id.action_hide) {
+                rcpb.hideProgress();
+            }
+            
+            return super.onOptionsItemSelected(item);
+        }
+
     }
     
 }
